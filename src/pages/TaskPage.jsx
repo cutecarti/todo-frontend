@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import tasksAPI from "../api/tasksAPI"
 
-const TaskPage = () => {
-    const taskId = '123'
+const TaskPage = ({params}) => {
+    const taskId = params.id
 
     const [task, setTask] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
