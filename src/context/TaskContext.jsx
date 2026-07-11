@@ -17,7 +17,9 @@ export const TasksProvider = ({children}) =>{
         setNewTaskTitle,
         newTaskInputRef,
         searchQuery,
-        setSearchQuery
+        setSearchQuery,
+        disappearingTaskId,
+        appearingTaskId
     } = useTasks()
 
     const {
@@ -39,7 +41,9 @@ export const TasksProvider = ({children}) =>{
             setNewTaskTitle,
             newTaskInputRef,
             searchQuery,
-            setSearchQuery
+            setSearchQuery,
+            disappearingTaskId,
+            appearingTaskId
         }}>
             {children}
         </TaskContext.Provider>
