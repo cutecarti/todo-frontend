@@ -1,39 +1,43 @@
-import { useEffect, useState } from "react"
-import tasksAPI from "@/shared/api/tasks"
+import { useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  fetchTaskById,
+  clearCurrentTask,
+} from '@/entities/todo/model/tasksSlice'
+import {
+  selectCurrentTask,
+  selectCurrentStatus,
+} from '@/entities/todo/model/selectors'
 
-const TaskPage = ({params}) => {
-    const taskId = params.id
+const TaskPage = () => {
+  const { id: taskId } = useParams()
+  const dispatch = useDispatch()
 
-    const [task, setTask] = useState(null)
-    const [isLoading, setIsLoading] = useState(true)
-    const [hasError, setHasError] = useState(false)
+  const task = useSelector(selectCurrentTask)
+  const currentStatus = useSelector(selectCurrentStatus)
 
-    useEffect(() => {
-        tasksAPI.getById(taskId).then((taskData) => {
-            setTask(taskData)
-            setHasError(false)
-        })
-        .catch(() => {
-            setHasError(true)
-        })
-        .finally(() => {
-            setIsLoading(false)
-        })
-    }, [])
-
-    if (isLoading) {
-        return <div>loading</div>
+  useEffect(() => {
+    dispatch(fetchTaskById(taskId))
+    return () => {
+      dispatch(clearCurrentTask())
     }
+  }, [dispatch, taskId])
 
-    if (hasError) {
-        return <div>task not found</div>
-    }
-    return (
-        <div>
-            <h1>{task.title}</h1>
-            <p>{task.isDone ? 'complete' : 'not complete'}</p>
-        </div>
-    )
+  if (currentStatus === 'loading' || currentStatus === 'idle') {
+    return <div>loading</div>
+  }
+
+  if (currentStatus === 'failed' || !task) {
+    return <div>task not found</div>
+  }
+
+  return (
+    <div>
+      <h1>{task.title}</h1>
+      <p>{task.isDone ? 'complete' : 'not complete'}</p>
+    </div>
+  )
 }
 
 export default TaskPage
