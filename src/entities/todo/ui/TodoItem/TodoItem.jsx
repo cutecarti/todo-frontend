@@ -1,6 +1,6 @@
-import { memo, useContext, useRef} from "react"
+import { memo, useContext } from "react"
+import { Link } from "react-router-dom"
 import { TaskContext } from "../../model/TaskContext"
-import RouterLink from "@/shared/ui/RouterLink"
 
 import styles from './TodoItem.module.scss'
 
@@ -42,7 +42,7 @@ const TodoItem = (props) => {
             {title}
           </label>
 
-          <RouterLink to={`tasks/${id}`} aria-label="Task detail page">{title}</RouterLink>
+          <Link to={`/tasks/${id}`} aria-label="Task detail page">{title}</Link>
 
           <button
             className={styles.deleteButton}
