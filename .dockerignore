@@ -1,0 +1,15 @@
+Dockerfile
+.dockerignore
+docker-compose.yml
+.git
+.gitignore
+.next
+node_modules
+.docker-build
+npm-debug.log*
+README.md
+db.json5
+dist
+*.md
+.env
+.env*.local

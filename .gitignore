@@ -12,6 +12,18 @@ dist
 dist-ssr
 *.local
 
+.docker-build
+.npm-cache
+
+
+# Env
+.env
+.env*.local
+
+# Prisma
+prisma/*.db
+prisma/*.db-journal
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
